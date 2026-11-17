@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buchbrüder - Hier passiert bald Großes</title>
+    <!-- Einbinden von Google Fonts für ein schöneres, minimalistisches Schriftbild -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Zurücksetzen von Standard-Abständen */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            /* Ein warmer, ansprechender Creme-Farbton */
+            background-color: #fcf9f2; 
+            color: #2c2421; /* Dunkelbraun statt hartem Schwarz für einen weicheren Kontrast */
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2.5rem; /* Abstand zwischen den Elementen */
+            animation: fadeIn 1.2s ease-out; /* Sanftes Einblenden beim Laden */
+        }
+
+        /* Überschrift im Buch-Stil */
+        h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: #3d2f2b;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        /* Kleine dekorative Linie unter der Überschrift */
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 1px;
+            background-color: #8c7365;
+        }
+
+        /* Bilder-Rahmen und Design */
+        .image-wrapper {
+            width: 100%;
+            max-width: 450px;
+            aspect-ratio: 1 / 1;
+            border-radius: 12px;
+            overflow: hidden;
+            background-color: #ffffff;
+            box-shadow: 0 10px 30px rgba(61, 47, 43, 0.05); /* Sanfter, natürlicher Schatten */
+            border: 1px solid rgba(140, 115, 101, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .image-wrapper:hover {
+            transform: translateY(-4px); /* Interaktiver, leichter Schwebeeffekt bei Hover */
+        }
+
+        .image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 10px; /* Gibt der Zeichnung etwas Platz zum Rand */
+        }
+
+        /* Textbereich */
+        .message {
+            margin-top: 0.5rem;
+        }
+
+        .announcement {
+            font-size: 1.25rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            color: #3d2f2b;
+            margin-bottom: 0.75rem;
+        }
+
+        .subtext {
+            font-size: 1rem;
+            color: #6b5c54;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        /* Sanfte Ladeanimation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Optimierung für mobile Bildschirme */
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+            .announcement {
+                font-size: 1.1rem;
+            }
+            .subtext {
+                font-size: 0.95rem;
+            }
+            .container {
+                gap: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Überschrift -->
+        <h1>Buchbrüder</h1>
+
+        <!-- Deine Grafik -->
+        <div class="image-wrapper">
+            <!-- WICHTIG: Die Bilddatei "buchbrueder.png" muss im selben Ordner wie diese html-Datei liegen! -->
+            <img src="buchbrueder.png" alt="Buchbrüder Illustration">
+        </div>
+
+        <!-- Teaser Text -->
+        <div class="message">
+            <p class="announcement">Hier passiert bald Großes!</p>
+            <p class="subtext">Bleibt dran für Buchrezensionen und ähnliches.</p>
+        </div>
+    </div>
+
+</body>
+</html>
