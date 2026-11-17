@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap" rel="stylesheet">
-    
+
     <style>
         /* Zurücksetzen von Standard-Abständen */
         * {
@@ -19,7 +19,7 @@
 
         body {
             /* Ein warmer, ansprechender Creme-Farbton */
-            background-color: #fcf9f2; 
+            background-color: #fcf9f2;
             color: #2c2421; /* Dunkelbraun statt hartem Schwarz für einen weicheren Kontrast */
             font-family: 'Plus Jakarta Sans', sans-serif;
             min-height: 100vh;
@@ -109,6 +109,180 @@
             font-weight: 300;
         }
 
+        /* ---------- Gelesene Bücher ---------- */
+        .reading {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.25rem;
+        }
+
+        .reading h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            color: #3d2f2b;
+        }
+
+        .books {
+            list-style: none;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        /* Ein Eintrag: 3D-Szene links, Bewertung rechts */
+        .entry {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 1.25rem;
+            align-items: center;
+            text-align: left;
+            padding: 0.75rem;
+            border-radius: 12px;
+            background: #ffffff;
+            border: 1px solid rgba(140, 115, 101, 0.1);
+            box-shadow: 0 10px 30px rgba(61, 47, 43, 0.05);
+        }
+
+        .entry h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            color: #3d2f2b;
+        }
+
+        .entry .author {
+            font-size: 0.75rem;
+            font-weight: 300;
+            color: #6b5c54;
+            margin-top: 0.15rem;
+        }
+
+        .rating {
+            margin: 0.6rem 0 0.4rem;
+            font-size: 0.75rem;
+            font-weight: 300;
+            color: #6b5c54;
+        }
+
+        .rating strong {
+            font-family: 'Cinzel', serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #b8774a;
+        }
+
+        .entry .text {
+            font-size: 0.8rem;
+            font-weight: 300;
+            line-height: 1.55;
+            color: #6b5c54;
+        }
+
+        /* ---------- 3D-Szene ---------- */
+        .stage {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 700 / 590;
+            overflow: hidden;
+            border-radius: 8px;
+            background: #f3eddf;
+        }
+
+        .scene {
+            --red: #c93a47;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 700px;
+            height: 760px;
+            transform-origin: 0 0;
+            perspective: 1900px;
+            perspective-origin: 50% 38%;
+        }
+
+        .surface {
+            position: absolute;
+            left: -3000px;
+            top: 612px;
+            width: 6700px;
+            height: 3000px;
+            background: #ebe3d2;
+            border-top: 1px solid rgba(140, 115, 101, 0.25);
+        }
+
+        .world {
+            position: absolute;
+            inset: 0;
+            transform-style: preserve-3d;
+            transform-origin: 350px 610px;
+            transform: rotateX(7deg) rotateY(-22deg);
+            transition: transform .5s cubic-bezier(.2, .7, .2, 1);
+        }
+
+        .rig {
+            position: absolute;
+            left: 350px;
+            top: 610px;
+            width: 0;
+            height: 0;
+            transform-style: preserve-3d;
+        }
+
+        .box, .f { position: absolute; }
+        .box { transform-style: preserve-3d; }
+        .f { backface-visibility: hidden; }
+
+        /* Buchständer */
+        .stand .front, .stand .back { background: #fbf8f1; }
+        .stand .top { background: #ffffff; }
+        .stand .left, .stand .right { background: #e2dacb; }
+        .stand .bottom { background: #cfc6b5; }
+
+        /* Buch (Cover kommt aus --cover, gesetzt am .stage-Element) */
+        .book { transform-origin: 50% 100%; transform: rotateX(8deg); }
+        .book .front {
+            background:
+                linear-gradient(90deg, rgba(0,0,0,.24) 0, rgba(255,255,255,.14) 1.4%, rgba(0,0,0,.07) 3.4%, transparent 5.5%),
+                linear-gradient(118deg, rgba(255,255,255,.17), rgba(255,255,255,0) 42%),
+                var(--cover) center / 100% 100% no-repeat;
+        }
+        .book .back { background: var(--red); }
+        .book .left {
+            background: linear-gradient(90deg,
+                color-mix(in srgb, var(--red), #000 38%),
+                color-mix(in srgb, var(--red), #000 8%) 45%,
+                color-mix(in srgb, var(--red), #000 28%));
+        }
+        .book .right {
+            background:
+                linear-gradient(90deg, var(--red) 0 2px, transparent 2px calc(100% - 2px), var(--red) calc(100% - 2px)),
+                repeating-linear-gradient(90deg, #f1eee7 0 1px, #d6d2c7 1px 2px), #ebe8e0;
+        }
+        .book .top, .book .bottom {
+            background:
+                linear-gradient(180deg, var(--red) 0 2px, transparent 2px calc(100% - 2px), var(--red) calc(100% - 2px)),
+                repeating-linear-gradient(180deg, #efece4 0 1px, #d3cfc4 1px 2px), #e9e6de;
+        }
+        .book .top { filter: brightness(1.04); }
+
+        /* Schatten auf der Fläche */
+        .shadow { position: absolute; pointer-events: none; border-radius: 50%; filter: blur(14px); }
+        .s1 {
+            left: -240px; top: -95px; width: 480px; height: 190px;
+            background: radial-gradient(closest-side, rgba(61, 47, 43, .38), transparent);
+            transform: translate3d(46px, 10.5px, -26px) rotateX(90deg);
+        }
+        .s2 {
+            left: -185px; top: -45px; width: 370px; height: 90px;
+            background: radial-gradient(closest-side, rgba(61, 47, 43, .38), transparent);
+            transform: translate3d(8px, 10.6px, -2px) rotateX(90deg);
+        }
+
         /* Sanfte Ladeanimation */
         @keyframes fadeIn {
             from {
@@ -119,6 +293,11 @@
                 opacity: 1;
                 transform: translateY(0);
             }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .world { transition: none; }
+            .container { animation: none; }
         }
 
         /* Optimierung für mobile Bildschirme */
@@ -134,6 +313,10 @@
             }
             .container {
                 gap: 2rem;
+            }
+            .entry {
+                grid-template-columns: 1fr;
+                padding: 0.75rem 0.75rem 1rem;
             }
         }
     </style>
@@ -155,7 +338,88 @@
             <p class="announcement">Hier passiert bald Großes!</p>
             <p class="subtext">Bleibt dran für Buchrezensionen und ähnliches.</p>
         </div>
+
+        <!-- Gelesene Bücher: ein <li class="entry"> pro Buch, ältestes zuerst -->
+        <section class="reading">
+            <h2>Gelesene Bücher</h2>
+            <ol class="books">
+                <li class="entry">
+                    <div class="stage" style="--cover: url('unterm-rad.jpg')">
+                        <div class="scene" role="img" aria-label="Hermann Hesse, Unterm Rad, Suhrkamp BasisBibliothek, auf einem Buchständer">
+                            <div class="surface"></div>
+                            <div class="world">
+                                <div class="rig">
+                                    <div class="shadow s1"></div>
+                                    <div class="shadow s2"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3>Unterm Rad</h3>
+                        <p class="author">Hermann Hesse</p>
+                        <p class="rating"><strong>7,77</strong>/10 Buchwürmer</p>
+                        <p class="text">Unser erstes Buch!</p>
+                    </div>
+                </li>
+            </ol>
+        </section>
     </div>
+
+    <script>
+    (function () {
+        var W = 280, H = 437, D = 38;   /* Buchmaße in px (Breite, Höhe, Dicke) */
+        var CROP_TOP = 100;             /* sichtbarer Ausschnitt der Szene */
+
+        function box(rig, w, h, d, cls, tf) {
+            var b = document.createElement('div');
+            b.className = 'box ' + cls;
+            b.style.cssText = 'width:' + w + 'px;height:' + h + 'px;left:' + (-w / 2) + 'px;top:' + (-h) + 'px;' + (tf ? 'transform:' + tf : '');
+            function f(n, fw, fh, l, t, x) {
+                var e = document.createElement('div');
+                e.className = 'f ' + n;
+                e.style.cssText = 'width:' + fw + 'px;height:' + fh + 'px;left:' + l + 'px;top:' + t + 'px;transform:' + x;
+                b.appendChild(e);
+            }
+            f('front',  w, h, 0, 0, 'translateZ(' + d / 2 + 'px)');
+            f('back',   w, h, 0, 0, 'rotateY(180deg) translateZ(' + d / 2 + 'px)');
+            f('right',  d, h, (w - d) / 2, 0, 'rotateY(90deg) translateZ(' + w / 2 + 'px)');
+            f('left',   d, h, (w - d) / 2, 0, 'rotateY(-90deg) translateZ(' + w / 2 + 'px)');
+            f('top',    w, d, 0, (h - d) / 2, 'rotateX(90deg) translateZ(' + h / 2 + 'px)');
+            f('bottom', w, d, 0, (h - d) / 2, 'rotateX(-90deg) translateZ(' + h / 2 + 'px)');
+            rig.appendChild(b);
+        }
+
+        var stages = document.querySelectorAll('.stage');
+        var worlds = [];
+
+        stages.forEach(function (stage) {
+            var rig = stage.querySelector('.rig');
+            box(rig, 344, 10, 74, 'stand', 'translate3d(0,10px,-3px)'); /* Ständerplatte */
+            box(rig, W, H, D, 'book');                                  /* Buch */
+            box(rig, 344, 20, 10, 'stand', 'translate3d(0,0,29px)');    /* vordere Lippe */
+            worlds.push(stage.querySelector('.world'));
+        });
+
+        function fit() {
+            stages.forEach(function (stage) {
+                var s = stage.clientWidth / 700;
+                stage.querySelector('.scene').style.transform =
+                    'translateY(' + (-CROP_TOP * s) + 'px) scale(' + s + ')';
+            });
+        }
+        fit();
+        addEventListener('resize', fit);
+
+        /* Bücher folgen der Maus */
+        addEventListener('pointermove', function (e) {
+            var nx = e.clientX / innerWidth - .5;
+            var ny = e.clientY / innerHeight - .5;
+            var t = 'rotateX(' + (7 - ny * 6) + 'deg) rotateY(' + (-22 + nx * 16) + 'deg)';
+            worlds.forEach(function (w) { w.style.transform = t; });
+        });
+    })();
+    </script>
 
 </body>
 </html>
